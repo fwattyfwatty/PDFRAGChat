@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+python-multipart
+ollama
+langchain
+langchain-community
+pypdf
+faiss-cpu
+# faiss-gpu # GPUを利用する場合
+pydantic-settings
