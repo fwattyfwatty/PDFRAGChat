@@ -29,25 +29,24 @@ async def websocket_endpoint(websocket: WebSocket, session_id: str):
     (会話履歴の読み書き機能付き)
     """
     await websocket.accept()
-    # ... (既存のpipeline初期化)
+    # RAGパイプラインを初期化
+    rag_pipeline = RagPipeline(get_session_filename(session_id)) # 追加
 
     try:
         while True:
             question = await websocket.receive_text()
-            # ユーザーの質問を履歴に保存
             save_message_to_history(session_id, "user", question)
-            
-            response_stream = pipeline.generate_answer_stream(question)
-            
-            full_response = ""
-            for token in response_stream:
+
+            # RAGパイプラインを使って応答を生成
+            tokens, full_response = retrieve_and_generate_answer(rag_pipeline, question) # 追加
+
+            for token in tokens:
                 await websocket.send_text(token)
-                full_response += token
-            
-            # アシスタントの回答が完了したら履歴に保存
+
+            # 最終的な生成された応答を履歴に保存
             if full_response:
                 save_message_to_history(session_id, "assistant", full_response)
-            
+
             await websocket.send_text("[END_OF_STREAM]")
 
     except WebSocketDisconnect:

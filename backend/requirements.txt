@@ -8,3 +8,7 @@ pypdf
 faiss-cpu
 # faiss-gpu # GPUを利用する場合
 pydantic-settings
+# 追加
+sentence-transformers
+# 追加
+pydantic_settings

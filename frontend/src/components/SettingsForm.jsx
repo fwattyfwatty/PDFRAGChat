@@ -44,11 +44,11 @@ function SettingsForm({ initialSettings, ollamaModels, onSave }) {
         <legend>RAGパラメータ設定</legend>
         <div style={formGroupStyle}>
           <label htmlFor="chunk_size">チャンクサイズ:</label>
-          <input type="number" id="chunk_size" name="chunk_size" value={rag.chunk_size} onChange={handleRagChange} />
+          <input type="number" id="chunk_size" name="chunk_size" value={rag.chunk_size} onChange={handleRagChange} min="0" /> {/* 追加 */}
         </div>
         <div style={formGroupStyle}>
           <label htmlFor="chunk_overlap">チャンクオーバーラップ:</label>
-          <input type="number" id="chunk_overlap" name="chunk_overlap" value={rag.chunk_overlap} onChange={handleRagChange} />
+          <input type="number" id="chunk_overlap" name="chunk_overlap" value={rag.chunk_overlap} onChange={handleRagChange} min="0" /> {/* 追加 */}
         </div>
         <div style={formGroupStyle}>
           <label htmlFor="top_k">検索するチャンク数 (Top-K):</label>
@@ -56,7 +56,7 @@ function SettingsForm({ initialSettings, ollamaModels, onSave }) {
         </div>
       </fieldset>
 
-      <button type="submit" style={{ padding: '10px 20px' }}>保存</button>
+      <button type="submit" style={{ padding: '10px 20px', backgroundColor: "#4CAF50", color: "white" }}>保存</button> {/* 修正 */}
     </form>
   );
 }
